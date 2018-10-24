@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.homedev.primefaces</groupId>
+  <artifactId>helloworld</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>JSF - PrimeFaces using Apache Tomcat and Maven</name>
+ 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+
+    <servlet.version>3.1.0</servlet.version>
+    <jsf.version>2.2.15</jsf.version>
+    <primefaces.version>6.2</primefaces.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    
+  </properties>
+
+  <dependencies>
+    <!-- Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- JSF -->
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>${jsf.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-impl</artifactId>
+      <version>${jsf.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- PrimeFaces -->
+    <dependency>
+      <groupId>org.primefaces</groupId>
+      <artifactId>primefaces</artifactId>
+      <version>${primefaces.version}</version>
+    </dependency>
+    
+            <!-- JSP Standard Tag Libraries -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+		
+		 <!-- Themes -->
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+    
+    
+  </dependencies>
+
+	<build>
+ 	    <finalName>helloworld</finalName>
+		<plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		    <plugin>
+		       <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>true</failOnMissingWebXml>
+				</configuration>
+             </plugin>
+             <!-- Tomcat plugin -->  
+<plugin>  
+ <groupId>org.apache.tomcat.maven</groupId>  
+ <artifactId>tomcat7-maven-plugin</artifactId>  
+ <version>2.2</version>  
+ <configuration> 
+  <url>http://localhost:8080/manager/text</url>
+  <server>TomcatServer</server>   <!--   *(From maven > settings.xml)* -->
+  <path>/helloworld</path>   
+ </configuration>   
+ </plugin>   
+             
+             
+<!-- tomcat-users.xml -->
+<!-- 
+   <tomcat-users>
+      <role rolename="manager-gui"/>  
+      <role rolename="manager-script"/>   
+      <user username="admin" password="admin" roles="manager-gui, manager-script" />  
+   </tomcat-users>
+-->
+<!-- settings.xml (maven > conf) -->
+<!--
+<servers>  
+    <server>
+       <id>TomcatServer</id>
+       <username>admin</username>
+       <password>admin</password>
+    </server>
+</servers>
+-->
+<!-- mvn tomcat7:deploy OR mvn tomcat7:redeploy-->
+<!-- mvn org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:run OR tomcat7:run-->
+</plugins>
+	</build>
+
+</project>
