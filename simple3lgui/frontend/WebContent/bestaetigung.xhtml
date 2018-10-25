@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>CarDaten Simple Application</title>
+</h:head>	
+<h:body>
+  <f:view contentType="text/html; charset=UTF-8">	
+	<ui:include src="/standard.xhtml"/>
+
+<h:form id="page7formid">
+<h:panelGrid columns="1" style="width:600px;">
+<h:outputText value="Bestätigung" styleClass="ui-h-ueberschrift" />
+<br/> 
+<h:outputText value="Ihre Daten wurden geschickt." 
+                styleClass="ui-commentar-bold"/>
+<br/>                
+ <h:commandLink value="zurük zu SimpleEingabe" action="#{simplePersonBean.toPerson}" styleClass="ui-link-control"/>
+<br/>
+</h:panelGrid>
+</h:form> 
+</f:view>
+</h:body>
+</html>
