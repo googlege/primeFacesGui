@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+ 
+    <groupId>de.homedev.primefaces</groupId>
+    <artifactId>internationalization-api</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+ 
+    <name>internationalization-api</name>
+    <description>Spring Boot and PrimeFaces</description>
+ 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.4.RELEASE</version>
+    </parent>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+	
+
+	<dependencies>
+	   <!-- Spring -->
+	   <dependency> 
+          <groupId>org.hibernate.javax.persistence</groupId> 
+          <artifactId>hibernate-jpa-2.1-api</artifactId>
+          <scope>provided</scope> 
+       </dependency>
+       <dependency> 
+          <groupId>org.springframework.security</groupId> 
+          <artifactId>spring-security-core</artifactId>
+          <scope>provided</scope>
+          <exclusions>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-aop</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-beans</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-expression</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-jcl</artifactId>
+          	</exclusion>
+          </exclusions>
+       </dependency>
+        <dependency> 
+          <groupId>org.springframework.data</groupId> 
+          <artifactId>spring-data-commons</artifactId>
+          <scope>provided</scope>
+          <exclusions>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-beans</artifactId>
+          	</exclusion>
+          </exclusions>
+        </dependency>
+       
+	   <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+           <scope>provided</scope>
+		</dependency>
+	</dependencies>
+   <build>
+	    <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+		</plugins>
+	</build>
+ 
+</project>

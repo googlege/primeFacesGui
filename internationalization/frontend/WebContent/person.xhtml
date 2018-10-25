@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>CarDaten Simple Application</title>
+</h:head>	
+<h:body>
+  <f:view contentType="text/html; charset=UTF-8">	
+	<ui:include src="/standard.xhtml"/>
+    <h:form id="page0formid">
+       
+    
+    			 
+<h:panelGrid columns="1" style="width:700px;">
+
+ <!-- Persoenliche Angaben --> 
+ <h:outputText value="Persönliche Angaben und Anschrift" styleClass="ui-h-ueberschrift" />        
+<h:panelGrid columns="3" style="width:100%;" columnClasses="outputTextGridOrientation,inputTextGridOrientation,errorTextGridOrientation">
+       
+       
+       <h:outputText value="#{msg['person.firstname']}:*" styleClass="ui-h-outputText" style="width:450px;" />
+       <h:inputText id="vornameid" value="#{simplePersonBean.personDto.firstName}" styleClass="ui-h-inputText" style="width:230px;">
+        <f:validator validatorId="vornameValidator"/>
+       </h:inputText> 
+       <h:message showSummary="true" showDetail="false" for="vornameid" styleClass="ui-errormsg"/>
+       
+       <h:outputText value="#{msg['person.surname']}:*" styleClass="ui-h-outputText" style="width:450px;" />
+       <h:inputText id="nachnameid" value="#{simplePersonBean.personDto.lastName}" styleClass="ui-h-inputText" style="width:230px;">
+           <f:validator validatorId="nachnameValidator"/>
+       </h:inputText> 
+       <h:message showSummary="true" showDetail="false" for="nachnameid" styleClass="ui-errormsg"/>
+<!--  	   
+	   <h:outputText value="Adresse:*" styleClass="ui-h-outputText" style="width:450px;" />
+       <h:inputText id="adresseid" value="#{simplePersonBean.personDto.address}" styleClass="ui-h-inputText" style="width:230px;">
+           <f:validator validatorId="adresseValidator"/>
+       </h:inputText> 
+       <h:message showSummary="true" showDetail="false" for="adresseid" styleClass="ui-errormsg"/>
+       
+	   <h:outputText value="EMail:*" styleClass="ui-h-outputText" style="width:450px;" />
+       <h:inputText id="emailid" value="#{simplePersonBean.personDto.email}" styleClass="ui-h-inputText" style="width:230px;">
+           <f:validator validatorId="emailValidator"/>
+       </h:inputText> 
+       <h:message showSummary="true" showDetail="false" for="emailid" styleClass="ui-errormsg"/>
+	   
+	   <h:outputText value="Telefon:*" styleClass="ui-h-outputText" style="width:450px;" />
+       <h:inputText id="telefonid" value="#{simplePersonBean.personDto.phone}" styleClass="ui-h-inputText" style="width:230px;">
+          <f:validator validatorId="telefonValidator"/>
+       </h:inputText> 
+       <h:message showSummary="true" showDetail="false" for="telefonid" styleClass="ui-errormsg"/>      
+-->
+</h:panelGrid>
+ 
+
+<h:panelGrid columns="2" style="width:100%;" columnClasses="leftOrientation,rightOrientation">
+    <h:outputText value="Füllen Sie bitte alle mit einem * gekennzeichnete Felder aus." 
+                  styleClass="ui-commentar"/>
+    <h:commandButton styleClass="ui-button-control"
+                       id="senden" 
+                       value="senden" 
+                       action="#{simplePersonBean.toBestaetigung}"/>
+</h:panelGrid>
+
+
+</h:panelGrid>
+</h:form> <!-- id="page0formid">  -->
+</f:view>
+
+</h:body>
+</html>
+
