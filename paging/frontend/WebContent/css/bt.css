@@ -1,0 +1,368 @@
+.ui-rich-calendar{
+	border-color: rgb(0,0,0);
+	background-color:white;
+	color: rgb(0,0,0);
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:bold;
+}
+.ui-rich-calendar-buttonClass{
+	background-color:rgb(255,255,255);
+    color: rgb(0,0,0);
+}
+.rich-calendar-input {background-color:#FFFFFF}
+.rich-calendar-tool{background-color:#00A0DF;}
+.rich-calendar-toolfooter{background-color:#BFE3FE;}
+.rich-calendar-month{background-color:#00A0DF;}
+.rich-calendar-week{background-color:#FEF9BF;}
+
+.ui-rich-comboBox{
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:normal;
+    border-left:1px;
+    border-right:1px;
+    border-width: 1px;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-style:solid;
+    border-color:rgb(0,0,0);
+    padding:0px;
+    margin:0px;
+    background-color:rgb(255,255,255);
+    
+}
+.ui-rich-comboBox-itemSelected{
+	background-color:#00A0DF;
+    color: rgb(0,0,0);
+}
+
+
+.ui-rich-fileUpload{
+    background-color:rgb(255,255,255);
+    border-color:rgb(255,255,255);
+    border:0px;
+    margin:0px;
+    padding:0px;
+}
+.ui-rich-fileUpload-addButton{
+    font-family: Arial, Helvetica, Geneva, Sans-Serif ;
+    font-size:1em;
+    font-weight:bold;
+    text-align: center;
+    background-image:none;
+}
+.rich-fileupload-toolbar-decor{
+	background-color:rgb(255,255,255);
+	border:0px;
+    margin:0px;
+    padding:0px;
+}
+
+
+.ui-button-notcontrol{
+    font-family: Arial, Helvetica, Geneva, Sans-Serif ;
+    font-size:1em;
+    font-weight:bold;
+    margin-top:0px;
+    margin-right:4px;
+    padding-right:4px;
+    padding-left:4px;
+}
+.ui-button-control{
+    font-family: Arial, Helvetica, Geneva, Sans-Serif ;
+    font-size:1em;
+    font-weight:bold;
+    margin-top:0px;
+    margin-right:4px;
+    padding-right:4px;
+    padding-left:4px;
+}
+.ui-button-table{
+	font-family: Arial, Helvetica, Geneva, Sans-Serif ;
+    font-size:1em;
+    font-weight:bold;
+    margin-top:0px;
+    margin-right:4px;
+    padding-right:4px;
+    padding-left:4px;
+ }
+.ui-link-control{
+    font-family: Arial, Helvetica, Geneva, Sans-Serif ;
+    font-size:1em;
+    font-weight:bold;
+    margin-top:0px;
+    margin-right:4px;
+    padding-right:4px;
+    padding-left:4px;
+}
+
+
+
+
+
+.ui-h-ueberschrift{
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:bold;
+    color:blue;
+    margin:10px;
+    
+}
+
+.ui-title{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:normal;
+}
+
+.ui-h-outputText{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:normal;
+    border-left:1px;
+    border-right:1px;
+    border-width: 1px;
+    border-top: 1px;
+    border-bottom: 1px;
+    padding:0px;
+    margin:0px;
+}
+
+.ui-h-inputText{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:normal;
+    border-left:1px;
+    border-right:1px;
+    border-width: 1px;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-style:solid;
+    border-color:rgb(0,0,0);
+    padding:0px;
+    margin:0px;
+    background-color:rgb(255,255,255);
+ }
+ 
+.ui-h-inputText-whithout-border{
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:normal;
+    border:0px;
+    padding:0px;
+    margin:0px;
+    background: transparent;
+}
+ 
+.ui-errormsg{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:italic;
+    color:#ff0000;
+}
+
+.ui-commentar{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:normal;
+    width:100%;
+}
+.ui-commentar-bold{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:bold;
+    width:100%;
+}
+
+.ui-commentar-italic{ 
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:italic;
+    width:100%;
+}
+
+.ui-h-selectOneMenu{
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.2em;
+    font-weight:normal;
+    border-left:1px;
+    border-right:1px;
+    border-width: 1px;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-style:solid;
+    border-color:rgb(0,0,0);
+    padding:0px;
+    margin:0px;
+    background-color:rgb(255,255,255);
+}
+
+
+.ui-h-selectOneMenu-enabled{
+    padding:0px;
+    margin:0px;
+    background-color:rgb(255,255,255);
+}
+
+
+
+
+
+
+
+
+.ui-empty{
+    background:rgbrgb( 10, 200, 45);
+    border-width: 0px;
+    margin:0px;
+    padding:0px;
+    width:0px;
+}
+
+.ui-noborder{ 
+	margin:0px;
+    padding:0px;
+	border-width: 0px;     
+}
+
+.ui-tablerow{      
+	border: 1px; 
+	margin:1px;
+    padding:1px;    
+}
+.ui-datatable{      
+	border-width: 1px;      
+	border-style: solid;      
+	border-color: red;      
+	padding:4px 10px;  
+}
+
+/*stellenangeboteInc.xhtml*/
+.ui-st-table-text{
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:normal;
+    padding:0px;
+    margin:0px;
+    background: transparent;
+}    
+
+.ui-st-table-header{
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:bold;
+    padding:0px;
+    margin:0px;
+    background: transparent;
+}
+.ui-st-table-footer{
+  	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1em;
+    font-weight:bold;
+    padding:0px;
+    margin:0px;
+    background: transparent;
+}
+
+.ui-st-table{ 
+	border-width: 2px; 
+	width:100%;
+    background: transparent;          
+}
+
+
+/*stelledetailsInc.xhtml*/
+.ui-noborder-table-column{ 
+	margin:0px;
+    padding:0px;
+	border-width: 0px;     
+}
+
+.ui-noborder-table{ 
+	margin:0px;
+    padding:0px;
+	border-width: 0px; 
+	background: transparent;    
+}
+
+.ui-KOPFZEILE{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+    font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.6em;
+    font-weight:normal;
+    color:rgb(0,0,0);	
+}
+
+.ui-STELLENBEZEICHNUNG{
+	width:100%;
+	text-align:center;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 2em;
+    font-weight:bold;
+    color:rgb(0,0,255);
+}
+
+.ui-ARBEITGEBER{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.6em;
+    font-weight:normal;
+    color:rgb(0,0,0);
+}
+
+.ui-ORT{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.6em;
+    font-weight:normal;
+    color:rgb(0,0,0);
+}
+
+.ui-AUF_Q_AUS_UEBERSCHRIFT{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 2em;
+    font-weight:normal;
+    color:rgb(0,0,255);
+}
+
+.ui-AUF_Q_AUS_TEXT{
+	margin:auto;
+    padding:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.4em;
+    font-weight:normal;
+    color:rgb(0,0,0);
+}
+
+.ui-KONTAKT{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.6em;
+    font-weight:normal;
+    color:rgb(0,0,0);
+}
+
+.ui-KONTAKT-BOLD{
+	text-align:left;
+	margin-top:auto;
+    margin-bottom:auto;
+	font-family:Arial, Helvetica, Geneva, Sans-Serif;
+    font-size: 1.6em;
+    font-weight:bold;
+    color:rgb(0,0,0);
+}
+
