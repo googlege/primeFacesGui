@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>CarDaten Simple Application</title>
+</h:head>	
+<h:body>
+  <f:view contentType="text/html; charset=UTF-8">	
+	<ui:include src="/standard.xhtml"/>
+
+			<h:form
+				id="formTable"
+				style="height:400px;">
+				
+				<p:dataTable
+					id="blzDataTable"
+					var="blz"
+					value="#{blzControllerBean.table}"
+					widgetVar="blzDataTable"
+					rowKey="#{blzControllerBean.table.objectToKeyMap[blz]}"
+					selectionMode="single"
+					selection="#{blzControllerBean.table.selectedElement}"
+					sortBy="#{blz.id}"
+					sortOrder="descending"
+					lazy="true"
+					rows="#{blzControllerBean.table.selectedPageSize}"
+					filterEvent="enter"
+					filterMap="#{blzControllerBean.table.filterMap}"
+					resizableColumns="true"
+					emptyMessage="#{msgs['common^label^emptyMsg']}"
+					scrollRows="#{blzControllerBean.table.selectedPageSize}"
+					scrollable="true"
+					liveScroll="true"
+					rowIndexVar="rowIter"
+					scrollHeight="97%">
+
+					<f:facet
+						name="header"
+						id="tableHeader">
+						<p:toolbar
+							id="toolbarHeader"
+							style="border: none;">
+							<p:toolbarGroup align="left">
+								
+								<p:outputLabel
+									for="selectablePageSize"
+									value="#{msgs['common^label^selectablePageSize']}" />
+								<p:selectOneMenu
+									id="selectablePageSize"
+									value="#{blzControllerBean.table.selectedPageSize}">
+									<f:selectItems
+										value="#{blzControllerBean.table.selectablePageSizes}"
+										var="pageSize"
+										itemValue="#{pageSize}"
+										itemLabel="#{pageSize}" />
+									<p:ajax
+										update=":formTable"
+										resetValues="true"
+										oncomplete="PF('blzDataTable').filter()" />
+								</p:selectOneMenu>
+								<h:outputText
+									id="availableRowsHeader"
+									value="#{msgs['common^label^availableRows']} #{blzControllerBean.table.rowCount}"
+									style="padding-left:10px; white-space: nowrap;" />
+							</p:toolbarGroup>
+						</p:toolbar>
+					</f:facet>
+					<f:facet
+						name="footer"
+						id="tableFooter">
+						<h:outputText
+							id="availableRowsFooter"
+							value="#{msgs['common^label^availableRows']}: #{blzControllerBean.table.rowCount}"
+							style="text-align:center; white-space: nowrap;" />
+					</f:facet>
+					<p:column style="width:70px;">
+                        <h:outputText value="#{rowIter + 1}" />
+					</p:column>
+                    <p:column headerText="#{msgs['blz.id']}">
+                       <h:outputText value="#{blz.id}" />
+                    </p:column> 
+                    <p:column headerText="#{msgs['blz.blz']}"
+                         sortBy="#{blz.blz}" 
+                         filterBy="#{blz.blz}">
+                        <h:outputText value="#{blz.blz}" />
+                    </p:column>
+                    <p:column headerText="#{msgs['blz.bic']}"
+                         sortBy="#{blz.bic}" 
+                         filterBy="#{blz.bic}">
+                        <h:outputText value="#{blz.bic}" />
+                    </p:column> 
+                     <p:column headerText="#{msgs['blz.bankname']}"
+                         sortBy="#{blz.bankname}" 
+                         filterBy="#{blz.bankname}">
+                        <h:outputText value="#{blz.bankname}" />
+                    </p:column> 
+				</p:dataTable>
+			</h:form>
+
+	</f:view>
+
+</h:body>
+</html>
