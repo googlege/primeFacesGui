@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <title>CarDaten Simple Application</title>
+</h:head>
+<h:body>
+  <f:view contentType="text/html; charset=UTF-8">
+    <ui:include src="/standard.xhtml" />
+
+    <h:form
+      id="formTable"
+      style="height:400px;">
+
+      <p:contextMenu
+        id="contextMenuDataTable"
+        widgetVar="contextMenuDataTable"
+        for="blzDataTable"
+        beforeShow="return true;">
+        <p:menuitem
+          value="#{msgs['common.button.view']}"
+          actionListener="#{blzControllerBean.openView}"
+          icon="ui-icon-document"
+          update=":dialogBlzView"
+          oncomplete="PF('dialogBlzView').show()"
+          disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}"
+          styleClass="contextMenu-item">
+        </p:menuitem>
+        <p:menuitem
+          value="#{msgs['common.button.edit']}"
+          icon="ui-icon-pencil"
+          actionListener="#{blzControllerBean.openEdit}"
+          update=":dialogBlzEdit"
+          oncomplete="PF('dialogBlzEdit).show()"
+          disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}"
+          styleClass="contextMenu-item">
+        </p:menuitem>
+        <p:menuitem
+          value="#{msgs['common.button.delete']}"
+          icon="ui-icon-trash"
+          actionListener="#{blzControllerBean.openDelete}"
+          update=":dialogDelete"
+          oncomplete="PF('dialogDelete').show()"
+          disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}"
+          styleClass="contextMenu-item">
+        </p:menuitem>
+      </p:contextMenu>
+      
+<p:remoteCommand
+        name="rc"
+        update=":formTable:blzDataTable:toolbarHeader :formTable:blzDataTable:availableRowsHeader :formTable:blzDataTable:availableRowsFooter :formTable:contextMenuDataTable" />
+        
+      <p:dataTable
+        id="blzDataTable"
+        var="blz"
+        value="#{blzControllerBean.table}"
+        widgetVar="blzDataTable"
+        rowKey="#{blzControllerBean.table.objectToKeyMap[blz]}"
+        selectionMode="single"
+        selection="#{blzControllerBean.table.selectedElement}"
+        sortBy="#{blz.id}"
+        sortOrder="descending"
+        lazy="true"
+        rows="#{blzControllerBean.table.selectedPageSize}"
+        filterEvent="enter"
+        filterMap="#{blzControllerBean.table.filterMap}"
+        resizableColumns="true"
+        emptyMessage="#{msgs['common.label.emptyMsg']}"
+        scrollRows="#{blzControllerBean.table.selectedPageSize}"
+        scrollable="true"
+        liveScroll="true"
+        rowIndexVar="rowIter"
+        scrollHeight="97%">
+        <!-- double click event -->
+        <p:ajax
+          event="rowDblselect"
+          update=":dialogBlzView"
+          listener="#{blzControllerBean.openView}"
+          oncomplete="PF('dialogBlzView').show()" />
+        <!-- sort event -->
+        <p:ajax
+          event="sort"
+          listener="#{blzControllerBean.table.onSort}"
+          oncomplete="rc();" />
+        <!-- filter event -->
+        <p:ajax
+          event="filter"
+          listener="#{blzControllerBean.table.onFilter}"
+          oncomplete="rc();" />
+        <!-- row selected event -->
+        <p:ajax
+          event="rowSelect"
+          global="false"
+          update=":formTable:contextMenuDataTable toolbarHeader" />
+        <p:ajax
+          event="rowUnselect"
+          global="false"
+          update=":formTable:contextMenuDataTable toolbarHeader" />
+        <f:facet
+          name="header"
+          id="tableHeader">
+          <p:toolbar
+            id="toolbarHeader"
+            style="border: none;">
+            <p:toolbarGroup align="left">
+              <p:commandButton
+                id="btn_new"
+                icon="ui-icon-plus"
+                value="#{msgs['common.button.new']}"
+                actionListener="#{blzControllerBean.openNew}"
+                update=":dialogBlzEdit"
+                oncomplete="PF('dialogBlzEdit').show()">
+                <p:resetInput target=":dialogBlzEdit" />
+              </p:commandButton>
+              <p:commandButton
+                id="btnEdit"
+                value="#{msgs['common.button.edit']}"
+                actionListener="#{blzControllerBean.openEdit}"
+                disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}"
+                icon="ui-icon-document"
+                update=":dialogBlzEdit"
+                oncomplete="PF('dialogBlzEdit').show()"
+                resetValues="true">
+              </p:commandButton>
+              <p:commandButton
+                id="btnView"
+                value="#{msgs['common.button.view']}"
+                actionListener="#{blzControllerBean.openView}"
+                disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}"
+                icon="ui-icon-document"
+                update=":dialogBlzView"
+                oncomplete="PF('dialogBlzView').show()"
+                resetValues="true">
+              </p:commandButton>
+              <p:commandButton
+                id="btn_delete"
+                icon="ui-icon-trash"
+                value="#{msgs['common.button.delete']}"
+                actionListener="#{blzControllerBean.openDelete}"
+                update=":dialogDelete"
+                oncomplete="PF('dialogDelete').show()"
+                disabled="#{blzControllerBean.table.disableMenuContextAndTableToolbar}" />
+              <p:outputLabel
+                for="selectablePageSize"
+                value="#{msgs['common.label.selectablePageSize']}" />
+              <p:selectOneMenu
+                id="selectablePageSize"
+                value="#{blzControllerBean.table.selectedPageSize}">
+                <f:selectItems
+                  value="#{blzControllerBean.table.selectablePageSizes}"
+                  var="pageSize"
+                  itemValue="#{pageSize}"
+                  itemLabel="#{pageSize}" />
+                <p:ajax
+                  update=":formTable"
+                  resetValues="true"
+                  oncomplete="PF('blzDataTable').filter()" />
+              </p:selectOneMenu>
+              <h:outputText
+                id="availableRowsHeader"
+                value="#{msgs['common.label.availableRows']} #{blzControllerBean.table.rowCount}"
+                style="padding-left:10px; white-space: nowrap;" />
+            </p:toolbarGroup>
+          </p:toolbar>
+        </f:facet>
+        <f:facet
+          name="footer"
+          id="tableFooter">
+          <h:outputText
+            id="availableRowsFooter"
+            value="#{msgs['common.label.availableRows']}: #{blzControllerBean.table.rowCount}"
+            style="text-align:center; white-space: nowrap;" />
+        </f:facet>
+        <p:column style="width:70px;">
+          <h:outputText value="#{rowIter + 1}" />
+        </p:column>
+        <p:column headerText="#{msgs['blz.id']}">
+          <h:outputText value="#{blz.id}" />
+        </p:column>
+        <p:column
+          headerText="#{msgs['blz.blz']}"
+          sortBy="#{blz.blz}"
+          filterBy="#{blz.blz}">
+          <h:outputText value="#{blz.blz}" />
+        </p:column>
+        <p:column
+          headerText="#{msgs['blz.bic']}"
+          sortBy="#{blz.bic}"
+          filterBy="#{blz.bic}">
+          <h:outputText value="#{blz.bic}" />
+        </p:column>
+        <p:column
+          headerText="#{msgs['blz.bankname']}"
+          sortBy="#{blz.bankname}"
+          filterBy="#{blz.bankname}">
+          <h:outputText value="#{blz.bankname}" />
+        </p:column>
+      </p:dataTable>
+
+
+    </h:form>
+
+
+    <p:dialog
+      id="dialogBlzEdit"
+      header="#{msgs['common.dialog.detailsheader']}"
+      widgetVar="dialogBlzEdit"
+      dynamic="true"
+      closeOnEscape="true"
+      width="600"
+      modal="true"
+      appendTo="@(body)">
+      <div
+        id="dialogBlzEdit-modal"
+        class="dialog-modal">
+        <h:form
+          id="dialogBlzEditForm"
+          onkeypress="if (event.keyCode == 13) {return false; }">
+          <!-- Validation messages -->
+          <p:messages
+            id="summaryMessages"
+            showSummary="false"
+            showDetail="true"
+            autoUpdate="true"
+            escape="false"
+            closable="true" />
+
+          <p:panelGrid
+            id="panelgridEdit"
+            columns="2"
+            style="width: 100%">
+
+            <p:column>
+              <p:outputLabel
+                for="inputId"
+                value="#{msgs['blz.id']}" />
+            </p:column>
+            <p:column>
+              <h:outputText
+                id="inputId"
+                value="#{blzControllerBean.details.entry.id}" />
+            </p:column>
+
+            <p:column>
+              <p:outputLabel
+                for="inputBlz"
+                value="#{msgs['blz.blz']}" />
+            </p:column>
+            <p:column>
+              <p:inputText
+                id="inputBlz"
+                value="#{blzControllerBean.details.entry.blz}"
+                required="true"
+                size="20"
+                minlength="8"
+                maxlength="8" />
+            </p:column>
+
+            <p:column>
+              <p:outputLabel
+                for="inputBic"
+                value="#{msgs['blz.bic']}" />
+            </p:column>
+            <p:column>
+              <p:inputText
+                id="inputBic"
+                style="text-transform:uppercase"
+                value="#{blzControllerBean.details.entry.bic}"
+                required="false"
+                size="20"
+                maxlength="11">
+                <f:converter converterId="toUpperCaseConverter" />
+              </p:inputText>
+            </p:column>
+
+            <p:column>
+              <p:outputLabel
+                for="inputBankname"
+                value="#{msgs['blz.bankname']}" />
+            </p:column>
+            <p:column>
+              <p:inputText
+                id="inputBankname"
+                value="#{blzControllerBean.details.entry.bankname}"
+                required="true"
+                size="40"
+                maxlength="60" />
+            </p:column>
+
+          </p:panelGrid>
+          <p:panelGrid
+            id="panelgridEditButtons"
+            style="width: 100%; text-align: center"
+            styleClass="panelGridCenter"
+            columns="1">
+            <p:column colspan="2">
+              <p:commandButton
+                id="btnEditSave"
+                value="#{msgs['common.button.save']}"
+                icon="ui-icon-disk"
+                actionListener="#{blzControllerBean.details.doSave}"
+                update=":formTable"
+                oncomplete="if (!args.validationFailed) PF('dialogBlzEdit').hide()" />
+                  &nbsp;&nbsp;
+       <p:commandButton
+                id="btnEditCancel"
+                value="#{msgs['common.button.cancel']}"
+                oncomplete="PF('dialogBlzEdit').hide()"
+                icon="ui-icon-cancel"
+                process="@this"
+                ignoreAutoUpdate="true">
+                <p:resetInput target="panelgridEdit" />
+              </p:commandButton>
+            </p:column>
+          </p:panelGrid>
+        </h:form>
+      </div>
+    </p:dialog>
+
+    <!-- Dialog to confirm deletion of entry -->
+    <p:dialog
+      id="dialogDelete"
+      header="#{msgs['common.dialog.deleteheader']}"
+      widgetVar="dialogDelete"
+      modal="true"
+      appendTo="@(body)"
+      width="600"
+      showEffect="explode"
+      hideEffect="explode"
+      closeOnEscape="true">
+      <div
+        id="dialog-modal"
+        class="dialog-modal">
+        <h:form id="formDelete">
+          <p:panelGrid id="panelgridDelete">
+            <p:row>
+              <p:column>
+                <b> <h:outputText value="#{msgs['common.dialog.deleteConfirm']}" />
+                </b>
+              </p:column>
+            </p:row>
+            <p:row>
+              <p:column>
+                <h:outputText value="#{msgs['blz.id']}: #{blzControllerBean.details.entry.id}" />
+              </p:column>
+            </p:row>
+            <p:row>
+              <p:column>
+                <h:outputText value="#{msgs['blz.blz']}: #{blzControllerBean.details.entry.blz}" />
+              </p:column>
+            </p:row>
+            <p:row>
+              <p:column>
+                <h:outputText value="#{msgs['blz.bic']}: #{blzControllerBean.details.entry.bic}" />
+              </p:column>
+            </p:row>
+            <p:row>
+              <p:column>
+                <h:outputText value="#{msgs['blz.bankname']}: #{blzControllerBean.details.entry.bankname}" />
+              </p:column>
+            </p:row>
+            <p:row>
+              <p:column>
+                <p:commandButton
+                  id="buttonDelete"
+                  value="#{msgs['common.button.delete']}"
+                  actionListener="#{blzControllerBean.doDelete}"
+                  update=":formTable"
+                  icon="ui-icon-trash"
+                  oncomplete="PF('dialogDelete').hide()" />
+                  &nbsp; &nbsp;
+                  <p:commandButton
+                  id="buttonCancel"
+                  value="#{msgs['common.button.cancel']}"
+                  icon="ui-icon-cancel"
+                  immediate="true"
+                  oncomplete="PF('dialogDelete').hide()" />
+              </p:column>
+            </p:row>
+          </p:panelGrid>
+        </h:form>
+      </div>
+    </p:dialog>
+
+    <p:dialog
+      id="dialogBlzView"
+      header="#{msgs['common.dialog.detailsheader']}"
+      widgetVar="dialogBlzView"
+      dynamic="true"
+      closeOnEscape="true"
+      width="600"
+      modal="true"
+      appendTo="@(body)">
+      <div
+        id="dialogBlzView-modal"
+        class="dialog-modal">
+        <h:form
+          id="dialogBlzViewForm"
+          onkeypress="if (event.keyCode == 13) {return false; }">
+          <p:panelGrid
+            columns="2"
+            style="width: 100%">
+            <p:column>
+              <h:outputText value="#{msgs['blz.id']}" />
+            </p:column>
+            <p:column>
+              <h:outputText value="#{blzControllerBean.details.entry.id}" />
+            </p:column>
+
+            <p:column>
+              <h:outputText value="#{msgs['blz.blz']}" />
+            </p:column>
+            <p:column>
+              <h:outputText value="#{blzControllerBean.details.entry.blz}" />
+            </p:column>
+
+            <p:column>
+              <h:outputText value="#{msgs['blz.bic']}" />
+            </p:column>
+            <p:column>
+              <h:outputText value="#{blzControllerBean.details.entry.bic}" />
+            </p:column>
+
+            <p:column>
+              <h:outputText value="#{msgs['blz.bankname']}" />
+            </p:column>
+            <p:column>
+              <h:outputText value="#{blzControllerBean.details.entry.bankname}" />
+            </p:column>
+
+          </p:panelGrid>
+          <br />
+          <div style="float: right;">
+            <p:commandButton
+              value="#{msgs['common.button.close']}"
+              icon="ui-icon-close"
+              immediate="true"
+              oncomplete="PF('dialogBlzView').hide()" />
+          </div>
+        </h:form>
+      </div>
+    </p:dialog>
+
+
+
+
+
+
+
+  </f:view>
+
+</h:body>
+</html>
