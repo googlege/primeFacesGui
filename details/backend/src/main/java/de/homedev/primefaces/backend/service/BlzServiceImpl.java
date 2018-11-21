@@ -1,5 +1,6 @@
 package de.homedev.primefaces.backend.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.homedev.primefaces.api.model.BlzEntity;
 import de.homedev.primefaces.api.model.BlzSearchDto;
+import de.homedev.primefaces.api.model.UserEntity;
 import de.homedev.primefaces.backend.dao.BlzDao;
 import de.homedev.primefaces.backend.service.api.IBlzService;
 
@@ -31,8 +33,11 @@ public class BlzServiceImpl implements IBlzService {
     }
 
     @Override
-    public void deleteById(Long pk) {
-        blzDao.deleteById(pk);
+    public void deleteById(Long pk, UserEntity deletedBy) {
+        // BlzEntity entity = blzDao.getOne(pk);
+        // entity.setDeletedBy(deletedBy);
+        // blzDao.delete(entity);
+        blzDao.delete(pk, deletedBy, ZonedDateTime.now());
 
     }
 

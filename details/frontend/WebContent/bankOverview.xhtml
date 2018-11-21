@@ -200,6 +200,22 @@
           filterBy="#{blz.bankname}">
           <h:outputText value="#{blz.bankname}" />
         </p:column>
+        
+        <p:column
+          headerText="#{msgs['blz.deleted']}">
+          <h:outputText value="#{blz.deleted}" />
+        </p:column>
+        
+         <p:column
+          headerText="#{msgs['blz.deletedBy']}">
+          <h:outputText value="#{blz.deletedByAsString}" />
+        </p:column>
+        
+        <p:column
+          headerText="#{msgs['blz.deletedAt']}">
+          <h:outputText value="#{blz.deletedAt}" />
+        </p:column>
+        
       </p:dataTable>
 
 
@@ -432,8 +448,8 @@
             <p:column>
               <h:outputText value="#{blzControllerBean.details.entry.bankname}" />
             </p:column>
-
-          </p:panelGrid>
+            
+         </p:panelGrid>
           <br />
           <div style="float: right;">
             <p:commandButton

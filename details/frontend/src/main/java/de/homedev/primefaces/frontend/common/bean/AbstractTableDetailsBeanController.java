@@ -34,6 +34,7 @@ public abstract class AbstractTableDetailsBeanController<T> extends AbstractBean
     }
 
     public void openDelete() {
+        getDetails().setEntry(getTable().getSelectedElement());
     }
 
 }

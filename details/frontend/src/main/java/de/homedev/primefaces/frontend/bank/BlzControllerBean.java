@@ -15,57 +15,57 @@ import de.homedev.primefaces.frontend.util.RmiClientUtil;
 @ManagedBean(name = "blzControllerBean")
 @ViewScoped
 public class BlzControllerBean extends AbstractTableDetailsBeanController<BlzEntity> {
-    // -- serializable ---------------------------------------------------------
-    private static final long serialVersionUID = 18023857565625L;
-    private BlzTableController table;
-    private BlzDetailsController details;
+	// -- serializable ---------------------------------------------------------
+	private static final long serialVersionUID = 18023857565625L;
+	private BlzTableController table;
+	private BlzDetailsController details;
 
-    @Override
-    public BlzTableController getTable() {
-        if (table == null) {
-            table = new BlzTableController(this);
-        }
-        return table;
-    }
+	@Override
+	public BlzTableController getTable() {
+		if (table == null) {
+			table = new BlzTableController(this);
+		}
+		return table;
+	}
 
-    public void setTable(BlzTableController table) {
-        this.table = table;
-    }
+	public void setTable(BlzTableController table) {
+		this.table = table;
+	}
 
-    @Override
-    public BlzDetailsController getDetails() {
-        if (details == null) {
-            details = new BlzDetailsController(this);
-        }
-        return details;
-    }
+	@Override
+	public BlzDetailsController getDetails() {
+		if (details == null) {
+			details = new BlzDetailsController(this);
+		}
+		return details;
+	}
 
-    public void setDetails(BlzDetailsController details) {
-        this.details = details;
-    }
+	public void setDetails(BlzDetailsController details) {
+		this.details = details;
+	}
 
-    public void doDelete() {
-        try {
-            BlzEntity entity = getTable().getSelectedElement();
-            getFassade().deleteById(entity.getId());
-            getTable().setSelectedElement(null);
-            this.addCommonDeletedMsg();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-    }
+	public void doDelete() {
+		try {
+			BlzEntity entity = getTable().getSelectedElement();
+			getFassade().deleteById(entity.getId(), this.readCurrentUser());
+			getTable().setSelectedElement(null);
+			this.addCommonDeletedMsg();
+		} catch (RemoteException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+	}
 
-    public IBlzFassade getFassade() {
-        try {
-            return RmiClientUtil.getBlzFassade(FrontendSettings.getSettings());
-        } catch (NamingException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-    }
+	public IBlzFassade getFassade() {
+		try {
+			return RmiClientUtil.getBlzFassade(FrontendSettings.getSettings());
+		} catch (NamingException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+	}
 
-    @Override
-    public BlzEntity newEntity() {
-        return new BlzEntity();
-    }
+	@Override
+	public BlzEntity newEntity() {
+		return new BlzEntity();
+	}
 
 }

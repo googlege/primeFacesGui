@@ -45,6 +45,9 @@
         bankname varchar(60),
         bic varchar(11),
         blz varchar(8) not null,
+        deleted boolean DEFAULT FALSE NOT NULL,
+        deleted_at timestamp,
+        deletedbyid int8,
         version int4 not null,
         primary key (id)
     );
@@ -59,6 +62,12 @@ alter table users
        foreign key (role_id) 
        references role;
 
+alter table blz 
+       add constraint FK6y5k59s7jd3gd7vwnnbp3tgy5 
+       foreign key (deletedbyid) 
+       references users;       
+       
+       
 insert into bt_sequences (SEQUENCENAME, SEQUENCEVALUE)  values ('mandant',10);
 insert into bt_sequences (SEQUENCENAME, SEQUENCEVALUE)  values ('role',10);
 insert into bt_sequences (SEQUENCENAME, SEQUENCEVALUE)  values ('users',10);

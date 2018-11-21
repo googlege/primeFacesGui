@@ -1,9 +1,13 @@
 package de.homedev.primefaces.api.model;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.SQLDelete;
+
+import de.homedev.primefaces.api.interfaces.SoftDelete;
 import de.homedev.primefaces.api.util.SqlUtils;
 
 /**
@@ -16,7 +20,13 @@ import de.homedev.primefaces.api.util.SqlUtils;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = BlzEntity.TABLE_NAME)
-public class BlzEntity implements Serializable {
+
+// @SQLDelete(sql = "UPDATE blz SET deletedbyid = ?, deleted = true WHERE id = ? AND version = ?")
+// -> NOT WORKING -> org.postgresql.util.PSQLException: Für
+// den Parameter 3 wurde kein Wert angegeben.
+@SQLDelete(sql = "UPDATE blz SET deleted = true WHERE id = ? AND version = ?")
+// @Where(clause = "deleted = false") //- WORKING BUT NOT USED
+public class BlzEntity implements SoftDelete, Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String TABLE_NAME = "blz";
@@ -31,7 +41,8 @@ public class BlzEntity implements Serializable {
     // public static final int ORT_MAX_LENGTH = 256;
 
     @Id
-    @TableGenerator(name = TABLE_NAME, table = "BT_SEQUENCES", pkColumnName = "SEQUENCENAME", valueColumnName = "SEQUENCEVALUE", pkColumnValue = TABLE_NAME, initialValue = 1, allocationSize = 1)
+    @TableGenerator(name = TABLE_NAME, table = "BT_SEQUENCES", pkColumnName = "SEQUENCENAME", valueColumnName = "SEQUENCEVALUE",
+        pkColumnValue = TABLE_NAME, initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = TABLE_NAME)
     @Column(name = "id")
     private Long id;
@@ -45,7 +56,7 @@ public class BlzEntity implements Serializable {
     @Column(name = "bankname", length = BANKNAME_MAX_LENGTH, nullable = true)
     private String bankname;
 
-    //@Column(name = "PLZ", length = PLZ_MAX_LENGTH)
+    // @Column(name = "PLZ", length = PLZ_MAX_LENGTH)
     // private String plz;
     //
     // @Column(name = "ORT", length = ORT_MAX_LENGTH)
@@ -54,6 +65,19 @@ public class BlzEntity implements Serializable {
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;
+
+    @Column(name = "deleted", nullable = false, columnDefinition = "boolean DEFAULT FALSE")
+    private boolean deleted = false;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deletedbyid", referencedColumnName = "id")
+    private UserEntity deletedBy;
+
+    @Column(name = "deletedbyid", insertable = false, updatable = false)
+    private Long deletedbyid;
+
+    @Column(name = "deleted_at", nullable = true)
+    private ZonedDateTime deletedAt;
 
     public BlzEntity() {
     }
@@ -75,6 +99,7 @@ public class BlzEntity implements Serializable {
         this.bankname = array[AppConstants.BANKNAME_ID];
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -152,6 +177,47 @@ public class BlzEntity implements Serializable {
         }
         sb.append("\r\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    @Override
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public UserEntity getDeletedBy() {
+        return deletedBy;
+    }
+
+    public String getDeletedByAsString() {
+        return deletedBy != null ? deletedBy.getUsername() : "";
+    }
+
+    @Override
+    public void setDeletedBy(UserEntity deletedBy) {
+        this.deletedBy = deletedBy;
+        this.deletedbyid = deletedBy != null ? deletedBy.getId() : null;
+    }
+
+    public ZonedDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    @Override
+    public void setDeletedAt(ZonedDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public Long getDeletedbyid() {
+        return deletedbyid;
+    }
+
+    public void setDeletedbyid(Long deletedbyid) {
+        this.deletedbyid = deletedbyid;
     }
 
 }
