@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.homedev.primefaces</groupId>
+  <artifactId>userrights-frontend</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>JSF - PrimeFaces using Apache Tomcat and Maven</name>
+ 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+
+    <servlet.version>3.1.0</servlet.version>
+    <jsf.version>2.2.15</jsf.version>
+    <primefaces.version>6.2</primefaces.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    
+  </properties>
+
+  <dependencies>
+    <dependency>
+          <groupId>de.homedev.primefaces</groupId>
+          <artifactId>userrights-api</artifactId>
+          <version>1.0.1-SNAPSHOT</version>
+    </dependency>
+	
+    <!-- Hibernate -->
+       	<dependency> 
+          <groupId>org.hibernate</groupId> 
+          <artifactId>hibernate-core</artifactId>
+          <version>5.2.17.FINAL</version>
+          <exclusions>
+          	<exclusion>
+          		<groupId>org.hibernate.common</groupId>
+          		<artifactId>hibernate-commons-annotations</artifactId>
+          	</exclusion>
+          </exclusions>
+       </dependency>
+       <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-annotations</artifactId>
+          <version>3.5.6-Final</version>
+       </dependency>
+       
+   	<!-- Spring -->
+       <dependency> 
+          <groupId>org.springframework.data</groupId> 
+          <artifactId>spring-data-commons</artifactId> 
+           <version>2.0.9.RELEASE</version>
+            <exclusions>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-beans</artifactId>
+          	</exclusion>
+          </exclusions>
+        </dependency>
+        <dependency> 
+          <groupId>org.springframework.security</groupId> 
+          <artifactId>spring-security-core</artifactId>
+           <version>5.0.8.RELEASE</version>
+           <exclusions>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-aop</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-beans</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-expression</artifactId>
+          	</exclusion>
+          	<exclusion>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>spring-jcl</artifactId>
+          	</exclusion>
+          </exclusions>
+        </dependency>
+     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+         <version>5.0.8.RELEASE</version>
+     </dependency>
+	
+	
+    <!-- Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- JSF -->
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>${jsf.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-impl</artifactId>
+      <version>${jsf.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- PrimeFaces -->
+    <dependency>
+      <groupId>org.primefaces</groupId>
+      <artifactId>primefaces</artifactId>
+      <version>${primefaces.version}</version>
+    </dependency>
+    
+            <!-- JSP Standard Tag Libraries -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+		
+		 <!-- Themes -->
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+    
+    <!-- Other -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.6</version>
+        </dependency>
+      <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+    
+  </dependencies>
+
+<build>
+ 	    <finalName>frontend</finalName>
+		<plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		    <plugin>
+		       <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>true</failOnMissingWebXml>
+				</configuration>
+             </plugin>
+             <!-- Tomcat plugin -->  
+<plugin>  
+ <groupId>org.apache.tomcat.maven</groupId>  
+ <artifactId>tomcat7-maven-plugin</artifactId>  
+ <version>2.2</version>  
+ <configuration> 
+  <url>http://localhost:8080/manager/text</url>
+  <server>TomcatServer</server>   <!--   *(From maven > settings.xml)* -->
+  <path>/frontend</path>   
+ </configuration>   
+ </plugin>   
+             
+             
+<!-- tomcat-users.xml -->
+<!-- 
+   <tomcat-users>
+      <role rolename="manager-gui"/>  
+      <role rolename="manager-script"/>   
+      <user username="admin" password="admin" roles="manager-gui, manager-script" />  
+   </tomcat-users>
+-->
+<!-- settings.xml (maven > conf) -->
+<!--
+<servers>  
+    <server>
+       <id>TomcatServer</id>
+       <username>admin</username>
+       <password>admin</password>
+    </server>
+</servers>
+-->
+<!-- mvn tomcat7:deploy OR mvn tomcat7:redeploy-->
+<!-- mvn org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:run OR tomcat7:run-->
+</plugins>
+	</build>
+
+</project>
