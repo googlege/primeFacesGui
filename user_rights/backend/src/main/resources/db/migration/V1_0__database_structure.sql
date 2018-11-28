@@ -20,7 +20,7 @@
         primary key (id)
     );
     
-    create table removed_permissions (
+    create table inverted_permissions (
         id int8 not null,
         permission int8 not null,
         version int4 not null,
@@ -65,7 +65,7 @@ alter table users
        foreign key (mandant_id) 
        references mandant;
 
-alter table removed_permissions 
+alter table inverted_permissions 
        add constraint FKa5b3ngk6a69hhy8cp120idyn 
        foreign key (user_id) 
        references users;

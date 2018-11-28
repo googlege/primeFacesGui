@@ -39,9 +39,13 @@ public class UserEntity extends AbstractMandantEntity implements UserDetails {
     @Column(name = "rolle", length = AppConstants.AUTHORITY_MAX_LENGTH, nullable = false)
     @Convert(converter = RolleConverter.class)
     private Rolle rolle = Rolle.UNKNOWN;
-
+    /**
+     * If default permission is allowed then after record is created it is "not allowed", but
+     * if  default permission "not allowed" then after record is created it is allowed. 
+     * This is the posibility declaring per default disabled permissions.
+     */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REFRESH)
-    private Set<RemovedPermission> removedPermissions;
+    private Set<InvertedPermission> invertedPermissions;
 
 	public UserEntity() {
 		super();
@@ -134,17 +138,36 @@ public class UserEntity extends AbstractMandantEntity implements UserDetails {
 		return this.getMandant().getName();
 	}
 	
-	
+	public  InvertedPermission findInvertedPermission(Permission permission) {
+	    for (InvertedPermission perm:invertedPermissions) {
+	        if (perm.getPermission()==permission) {
+	            return perm;
+	        }
+	    }
+	    return null;
+	}
 	
 	public boolean hasPermission(Permission permission) {
 	    CurrentPermission currentPermission=rolle.findPermission(permission);
 	    if (currentPermission==null) {
 	        return false;
 	    }
-//	    RemovedPermission removedPermission
-//	    for 
-	    //TODU IMPLEMENT
-	    return true;
+	    if (!currentPermission.isEditable()||findInvertedPermission(permission)==null) {
+	        return currentPermission.isPermited();
+	    }
+	    return !currentPermission.isPermited();
 	}
+	
+	public Boolean hasPermissionBlzRead() {
+        return hasPermission(Permission.BLZ_READ);
+    }
+	
+	public Boolean hasPermissionBlzWrite() {
+        return hasPermission(Permission.BLZ_WRITE);
+    }
+	
+	public Boolean hasPermissionBlzDelete() {
+        return hasPermission(Permission.BLZ_DELETE);
+    }
 
 }

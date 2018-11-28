@@ -9,11 +9,11 @@ import java.io.Serializable;
 
 @Entity
 @Access(AccessType.FIELD)
-@Table(name = RemovedPermission.TABLE_NAME)
-public final class RemovedPermission implements Serializable {
+@Table(name = InvertedPermission.TABLE_NAME)
+public final class InvertedPermission implements Serializable, Comparable<InvertedPermission> {
 
     private static final long serialVersionUID = 1L;
-    public static final String TABLE_NAME = "removed_permissions";
+    public static final String TABLE_NAME = "inverted_permissions";
 
     @Id
     @TableGenerator(name = TABLE_NAME, table = "BT_SEQUENCES", pkColumnName = "SEQUENCENAME", valueColumnName = "SEQUENCEVALUE",
@@ -34,12 +34,12 @@ public final class RemovedPermission implements Serializable {
     @Column(name = "version", nullable = false)
     private Integer version;
 
-    public RemovedPermission() {
+    public InvertedPermission() {
         super();
 
     }
 
-    public RemovedPermission(final Permission permission) {
+    public InvertedPermission(final Permission permission) {
         super();
         this.permission = permission;
     }
@@ -75,5 +75,34 @@ public final class RemovedPermission implements Serializable {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    @Override
+    public int compareTo(InvertedPermission o) {
+       return Long.compare(this.permission.getId(),o.permission.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((permission == null) ? 0 : permission.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        InvertedPermission other = (InvertedPermission) obj;
+        if (permission != other.permission)
+            return false;
+        return true;
+    }
+    
+    
 
 }
